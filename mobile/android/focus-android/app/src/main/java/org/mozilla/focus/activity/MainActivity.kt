@@ -4,10 +4,8 @@
 
 package org.mozilla.focus.activity
 
-import android.Manifest.permission.POST_NOTIFICATIONS
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.MenuItem
@@ -15,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.edit
@@ -25,7 +22,9 @@ import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import mozilla.components.browser.state.selector.privateTabs
+import mozilla.components.browser.state.state.searchEngines
 import mozilla.components.concept.engine.EngineView
+import mozilla.components.feature.search.ext.waitForSelectedOrDefaultSearchEngine
 import mozilla.components.feature.search.widget.BaseVoiceSearchActivity
 import mozilla.components.lib.auth.canUseBiometricFeature
 import mozilla.components.lib.crash.Crash
@@ -102,14 +101,6 @@ open class MainActivity : EdgeToEdgeActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var privateNotificationFeature: PrivateNotificationFeature
-    private val notificationPermission =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-            when {
-                granted -> {
-                    privateNotificationFeature.start()
-                }
-            }
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         components.experiments.initializeTooling(applicationContext, intent)
@@ -162,12 +153,23 @@ open class MainActivity : EdgeToEdgeActivity() {
             context = applicationContext,
             browserStore = components.store,
             crashReporter = components.crashReporter,
-            permissionRequestHandler = { requestNotificationPermission() },
+            // Never prompt for POST_NOTIFICATIONS; the erase notification just stays hidden
+            // for users who haven't already granted it some other way.
+            permissionRequestHandler = { },
         ).also {
             it.start()
         }
 
         components.notificationsDelegate.bindToActivity(this)
+
+        components.store.waitForSelectedOrDefaultSearchEngine {
+            val search = components.store.state.search
+            if (search.userSelectedSearchEngineId == null) {
+                search.searchEngines
+                    .firstOrNull { it.name.equals("DuckDuckGo", ignoreCase = true) }
+                    ?.let { components.searchUseCases.selectSearchEngine(it) }
+            }
+        }
 
         onBackPressedDispatcher.addCallback(
             this,
@@ -177,14 +179,6 @@ open class MainActivity : EdgeToEdgeActivity() {
                 }
             },
         )
-    }
-
-    private fun requestNotificationPermission() {
-        privateNotificationFeature.stop()
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            notificationPermission.launch(POST_NOTIFICATIONS)
-        }
     }
 
     private fun setSplashScreenPreDrawListener(

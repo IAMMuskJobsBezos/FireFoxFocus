@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
@@ -22,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDirection
+import androidx.compose.ui.unit.dp
 import androidx.core.content.pm.PackageInfoCompat
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.support.utils.ext.packageManagerCompatHelper
@@ -139,9 +141,10 @@ private fun AboutPageContent(
 @Composable
 private fun LogoIcon(onLogoClick: () -> Unit) {
     Image(
-        painter = painterResource(R.drawable.wordmark2),
+        painter = painterResource(R.drawable.elderberry_logo),
         contentDescription = null,
             modifier = Modifier
+                .size(120.dp)
                 .padding(focusDimensions.paddingTiny)
             .clickable(onClick = onLogoClick),
     )

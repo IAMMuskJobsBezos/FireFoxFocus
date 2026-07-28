@@ -41,17 +41,13 @@ import org.mozilla.focus.ext.hasSearchTerms
 import org.mozilla.focus.ext.requireComponents
 import org.mozilla.focus.ext.settings
 import org.mozilla.focus.input.InputToolbarIntegration
-import org.mozilla.focus.menu.home.HomeMenu
-import org.mozilla.focus.menu.home.HomeMenuItem
 import org.mozilla.focus.searchsuggestions.SearchSuggestionsViewModel
-import org.mozilla.focus.searchsuggestions.ui.SearchSuggestionsFragment
 import org.mozilla.focus.state.AppAction
 import org.mozilla.focus.state.Screen
 import org.mozilla.focus.topsites.DefaultTopSitesStorage.Companion.TOP_SITES_MAX_LIMIT
 import org.mozilla.focus.topsites.DefaultTopSitesView
 import org.mozilla.focus.topsites.TopSitesOverlay
 import org.mozilla.focus.ui.theme.FocusTheme
-import org.mozilla.focus.utils.SupportUtils
 import org.mozilla.focus.utils.ViewUtils
 
 /**
@@ -197,7 +193,6 @@ class UrlInputFragment :
         super.onViewCreated(view, savedInstanceState)
 
         setupTopSitesView()
-        setupSearchSuggestionsFragment()
         observeSearchSuggestions()
         observeAutocompleteSuggestions()
         setupToolbarAndFeatures()
@@ -214,12 +209,6 @@ class UrlInputFragment :
                 }
             }
         }
-    }
-
-    private fun setupSearchSuggestionsFragment() {
-        childFragmentManager.beginTransaction()
-            .replace(binding.searchViewContainer.id, SearchSuggestionsFragment.create())
-            .commit()
     }
 
     private fun observeSearchSuggestions() {
@@ -293,7 +282,6 @@ class UrlInputFragment :
                 R.drawable.home_background,
             )
             binding.dismissView.isVisible = false
-            binding.menuView.isVisible = true
         }
 
         tab?.let { currentTab ->
@@ -303,34 +291,9 @@ class UrlInputFragment :
                 currentTab.content.url
             }
             binding.searchViewContainer.isVisible = false
-            binding.menuView.isVisible = false
         }
 
         binding.browserToolbar.editMode()
-        setHomeMenu()
-    }
-
-    private fun setHomeMenu() {
-        binding.menuView.menuBuilder = HomeMenu(requireContext()) { menuItem ->
-            when (menuItem) {
-                is HomeMenuItem.Help -> openHelpPage()
-                is HomeMenuItem.Settings -> openSettingsPage()
-            }
-        }.getMenuBuilder()
-    }
-
-    private fun openHelpPage() {
-        requireComponents.tabsUseCases.addTab(
-            SupportUtils.HELP_URL,
-            source = SessionState.Source.Internal.Menu,
-            private = true,
-        )
-    }
-
-    private fun openSettingsPage() {
-        requireComponents.appStore.dispatch(
-            AppAction.OpenSettings(page = Screen.Settings.Page.Start),
-        )
     }
 
     /**
@@ -481,7 +444,6 @@ class UrlInputFragment :
         }
 
         animateBackground(scaleX = 1f, scaleY = 1f, alpha = 1f, translationX = 0f, translationY = 0f)
-        binding.toolbarBottomBorder.isVisible = false
     }
 
     private fun animateExit(onEnd: (() -> Unit)? = null) {
@@ -499,10 +461,8 @@ class UrlInputFragment :
             onEnd = onEnd,
         )
 
-        binding.toolbarBottomBorder.isVisible = true
         if (!isOverlay) {
             binding.dismissView.isVisible = false
-            binding.menuView.isVisible = true
         }
     }
 
@@ -645,8 +605,6 @@ class UrlInputFragment :
                 animateExit()
             }
         } else {
-            binding.menuView.isVisible = false
-
             if (!isOverlay && !binding.dismissView.isVisible) {
                 animateEnter()
                 binding.dismissView.isVisible = true

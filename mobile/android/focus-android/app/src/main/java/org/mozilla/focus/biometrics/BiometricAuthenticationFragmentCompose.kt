@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -23,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import mozilla.components.ui.colors.PhotonColors
 import org.mozilla.focus.R
 import org.mozilla.focus.ui.theme.FocusTheme
@@ -55,9 +57,11 @@ fun BiometricPromptContent(biometricErrorText: String, showBiometricPrompt: () -
             .gradientBackground(),
     ) {
         Image(
-            painter = painterResource(R.drawable.wordmark2),
+            painter = painterResource(R.drawable.elderberry_logo),
             contentDescription = stringResource(R.string.app_name),
-            modifier = Modifier.padding(start = focusDimensions.paddingLarge, end = focusDimensions.paddingLarge),
+            modifier = Modifier
+                .size(120.dp)
+                .padding(start = focusDimensions.paddingLarge, end = focusDimensions.paddingLarge),
         )
         Text(
             style = focusTypography.onboardingButton,

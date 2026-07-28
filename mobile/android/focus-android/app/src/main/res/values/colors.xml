@@ -13,7 +13,8 @@
     <color name="focusContrastPink">#e452B9</color>
 
     <color name="disabled">#66312A65</color>
-    <color name="splash_screen_background">@color/photonViolet05</color>
+    <color name="elderberryBrandPurple">#563B58</color>
+    <color name="splash_screen_background">@color/elderberryBrandPurple</color>
 
     <color name="urlBarHintText">@color/photonDarkGrey05</color>
 

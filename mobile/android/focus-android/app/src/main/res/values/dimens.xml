@@ -23,9 +23,9 @@
 
     <dimen name="textinputlayout_spacing">8dp</dimen>
 
-    <dimen name="urlinput_height">57dp</dimen>
+    <dimen name="urlinput_height">64dp</dimen>
 
-    <dimen name="browser_toolbar_height">56dp</dimen>
+    <dimen name="browser_toolbar_height">64dp</dimen>
 
     <!-- Override the default menu width values from AC. -->
     <dimen name="mozac_browser_menu_width_min" tools:ignore="UnusedResources">112dp</dimen>

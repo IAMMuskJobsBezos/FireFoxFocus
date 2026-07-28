@@ -13,8 +13,6 @@ import mozilla.telemetry.glean.private.NoExtras
 import org.mozilla.focus.GleanMetrics.SearchWidget
 import org.mozilla.focus.activity.IntentReceiverActivity
 import org.mozilla.focus.ext.components
-import org.mozilla.focus.ext.settings
-import org.mozilla.focus.perf.Performance
 import org.mozilla.focus.state.AppAction
 import org.mozilla.focus.utils.SearchUtils
 
@@ -44,18 +42,14 @@ object ExternalIntentNavigation {
 
     /**
      * Handle the app being opened with no specified destination.
-     * This can show the onboarding or the app's home screen.
+     * Onboarding is disabled, so this is a no-op and the app's home screen is shown.
      */
     @VisibleForTesting
     internal fun handleAppOpened(
         bundle: Bundle?,
         context: Context,
     ) {
-        if (context.settings.isFirstRun &&
-            !Performance.processIntentIfPerformanceTest(bundle, context)
-        ) {
-            context.components.appStore.dispatch(AppAction.ShowFirstRun)
-        }
+        // Onboarding intentionally disabled.
     }
 
     /**

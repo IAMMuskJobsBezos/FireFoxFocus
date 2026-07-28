@@ -89,6 +89,7 @@ import org.mozilla.focus.media.MediaSessionService
 import org.mozilla.focus.nimbus.FocusNimbus
 import org.mozilla.focus.search.SearchFilterMiddleware
 import org.mozilla.focus.search.SearchMigration
+import org.mozilla.focus.session.TabLimitMiddleware
 import org.mozilla.focus.state.AppState
 import org.mozilla.focus.state.AppStore
 import org.mozilla.focus.state.Screen
@@ -115,7 +116,7 @@ class Components(
     val appStore: AppStore by lazy {
         AppStore(
             AppState(
-                screen = if (context.settings.isFirstRun) Screen.FirstRun else Screen.Home,
+                screen = Screen.Home,
                 topSites = emptyList(),
                 isPinningSupported = null,
             ),
@@ -223,6 +224,7 @@ class Components(
                 RecordingDevicesMiddleware(context, notificationsDelegate),
                 CfrMiddleware(appStore, settings),
                 FileUploadsDirCleanerMiddleware(fileUploadsDirCleaner),
+                TabLimitMiddleware(),
             ) + EngineMiddleware.create(
                 engine,
                 // We are disabling automatic suspending of engine sessions under memory pressure.

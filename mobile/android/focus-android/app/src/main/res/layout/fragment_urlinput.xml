@@ -24,18 +24,29 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/logo"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="24dp"
             android:contentDescription="@string/app_name"
             android:focusable="false"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/wordmark2"
+            app:srcCompat="@drawable/elderberry_logo"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topSites" />
+
+        <TextView
+            android:id="@+id/logoWordmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/app_name"
+            android:textColor="?attr/primaryText"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -55,18 +66,10 @@
             android:layout_height="match_parent"
             android:background="@drawable/background_gradient" />
 
-        <View
-            android:id="@+id/toolbarBottomBorder"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="bottom"
-            android:alpha="0.20"
-            android:background="@color/divider" />
-
         <FrameLayout
             android:id="@+id/urlInputContainerView"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="@dimen/urlinput_height"
             android:layout_gravity="bottom"
             android:layout_margin="0dp"
             android:clipChildren="false">
@@ -86,13 +89,8 @@
                 <mozilla.components.browser.toolbar.BrowserToolbar
                     android:id="@+id/browserToolbar"
                     android:layout_width="0dp"
-                    android:layout_height="56dp"
+                    android:layout_height="@dimen/urlinput_height"
                     android:layout_weight="1" />
-
-                <mozilla.components.browser.menu.view.MenuButton
-                    android:id="@+id/menuView"
-                    android:layout_width="40dp"
-                    android:layout_height="56dp" />
 
             </LinearLayout>
 

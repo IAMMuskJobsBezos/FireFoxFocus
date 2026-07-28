@@ -202,22 +202,22 @@ class Settings(
 
     /**
      * Checks if URL autocomplete should use the shipped (pre-installed) domain list.
-     * Defaults to true.
+     * Defaults to false; autocomplete is disabled.
      */
     fun shouldAutocompleteFromShippedDomainList() =
         preferences.getBoolean(
             getPreferenceKey(R.string.pref_key_autocomplete_preinstalled),
-            true,
+            false,
         )
 
     /**
      * Checks if URL autocomplete should use the custom (user-added) domain list.
-     * Defaults to true.
+     * Defaults to false; autocomplete is disabled.
      */
     fun shouldAutocompleteFromCustomDomainList() =
         preferences.getBoolean(
             getPreferenceKey(R.string.pref_key_autocomplete_custom),
-            true,
+            false,
         )
 
     /**
