@@ -3,30 +3,38 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
+<!-- Elderberry start-page backdrop, from the design system's bg-gradient token:
+     linear-gradient(160deg, #6b4574 0%, #4a2c58 55%, #2a1633 100%).
+
+     The viewport is the design's own 390x844 reference frame, and the start/end points are the
+     CSS gradient line solved for that frame, so the 160deg angle is exact rather than snapped to
+     a multiple of 45 (which is all <shape><gradient android:angle> would allow):
+       direction = (sin 160, -cos 160) = (0.34202, 0.93969)
+       length    = 390*0.34202 + 844*0.93969 = 926.49
+       endpoints = centre (195, 422) -/+ (length / 2) * direction
+
+     Deliberately shared by light and dark: there is one Elderberry gradient, so the night
+     variants of this drawable were removed rather than given a separate palette. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
-    android:width="360dp"
-    android:height="640dp"
-    android:viewportWidth="360"
-    android:viewportHeight="640">
+    android:width="390dp"
+    android:height="844dp"
+    android:viewportWidth="390"
+    android:viewportHeight="844">
   <path
-      android:pathData="M360,640V0H0V640H360Z"
+      android:pathData="M390,844V0H0V844H390Z"
       android:fillType="evenOdd">
     <aapt:attr name="android:fillColor">
-      <gradient 
-          android:startY="293.054"
-          android:startX="384.668"
-          android:endY="1300.53"
-          android:endX="-407.443"
-          android:type="linear">
-        <item android:offset="0.015625" android:color="#D3D4FA"/>
-        <item android:offset="0.220059" android:color="#D7D6F9"/>
-        <item android:offset="0.416448" android:color="#ECEAFA"/>
-        <item android:offset="0.623772" android:color="#F5F4FE"/>
-        <item android:offset="0.757442" android:color="#D9D3F5"/>
-        <item android:offset="0.895833" android:color="#D6C9EB"/>
+      <gradient
+          android:type="linear"
+          android:startX="36.56"
+          android:startY="-13.24"
+          android:endX="353.44"
+          android:endY="857.24">
+        <item android:offset="0" android:color="#6b4574"/>
+        <item android:offset="0.55" android:color="#4a2c58"/>
+        <item android:offset="1" android:color="#2a1633"/>
       </gradient>
     </aapt:attr>
   </path>
 </vector>
-

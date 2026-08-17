@@ -3,28 +3,29 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
+<!-- Landscape variant of the Elderberry backdrop. Same gradient and same 160deg angle as the
+     portrait drawable, with the gradient line re-solved for an 844x390 frame:
+       length    = 844*0.34202 + 390*0.93969 = 655.14
+       endpoints = centre (422, 195) -/+ (length / 2) * (0.34202, 0.93969) -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
-    android:width="640dp"
-    android:height="360dp"
-    android:viewportWidth="640"
-    android:viewportHeight="360">
+    android:width="844dp"
+    android:height="390dp"
+    android:viewportWidth="844"
+    android:viewportHeight="390">
   <path
-      android:pathData="M640,360V0H0V360H640Z"
+      android:pathData="M844,390V0H0V390H844Z"
       android:fillType="evenOdd">
     <aapt:attr name="android:fillColor">
-      <gradient 
-          android:startY="164.843"
-          android:startX="683.854"
-          android:endY="1028.42"
-          android:endX="469.022"
-          android:type="linear">
-        <item android:offset="0.015625" android:color="#D3D4FA"/>
-        <item android:offset="0.220059" android:color="#D7D6F9"/>
-        <item android:offset="0.416448" android:color="#ECEAFA"/>
-        <item android:offset="0.623772" android:color="#F5F4FE"/>
-        <item android:offset="0.757442" android:color="#D9D3F5"/>
-        <item android:offset="0.895833" android:color="#D6C9EB"/>
+      <gradient
+          android:type="linear"
+          android:startX="309.97"
+          android:startY="-112.81"
+          android:endX="534.03"
+          android:endY="502.81">
+        <item android:offset="0" android:color="#6b4574"/>
+        <item android:offset="0.55" android:color="#4a2c58"/>
+        <item android:offset="1" android:color="#2a1633"/>
       </gradient>
     </aapt:attr>
   </path>

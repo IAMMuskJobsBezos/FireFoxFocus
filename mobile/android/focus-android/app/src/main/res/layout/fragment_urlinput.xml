@@ -22,31 +22,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- The white lockup, so the mark reads against the plum background. It already contains
+             the wordmark, so there is no separate title text underneath it. Same top margin as
+             before, so nothing shifts position. -->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/logo"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:adjustViewBounds="true"
             android:contentDescription="@string/app_name"
             android:focusable="false"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/elderberry_logo"
+            app:srcCompat="@drawable/elderberry_logo_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topSites" />
-
-        <TextView
-            android:id="@+id/logoWordmark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/app_name"
-            android:textColor="?attr/primaryText"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/logo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
